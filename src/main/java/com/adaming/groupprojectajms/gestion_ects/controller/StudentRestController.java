@@ -24,28 +24,23 @@ public class StudentRestController {
     private StudentCourseService studentCourseService;
 
     @GetMapping(value="/teacher/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Student> showAll(){
+    public Iterable<Student> getAll(){
         return this.studentService.fetchAll();
     }
 
-    @GetMapping(value="/teacher/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView showForTeacher(@PathVariable("id") Long id){
-        return null;
-    }
-
     @GetMapping(value="/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView showForStudent(@PathVariable("id") Long id){
-        return null;
+    public Student get(@PathVariable("id") Long id){
+        return this.studentService.fetchById(id);
     }
 
     @PostMapping(path="/student/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView addCourse(@PathVariable("id") Long id){
-        return null;
+    public Student addCourse(@PathVariable("id") Long id){
+        return get(id);
     }
 
-    @DeleteMapping("/student/course/{scId}")
-    public ModelAndView removeCourse(@PathVariable("scId") Long scId){
-        return null;
+    @DeleteMapping("/student/{id}/studentcourse/{scId}")
+    public Student removeCourse(@PathVariable("id") Long id, @PathVariable("scId") Long scId){
+        return get(id);
     }
 
     public StudentService getStudentService() {
