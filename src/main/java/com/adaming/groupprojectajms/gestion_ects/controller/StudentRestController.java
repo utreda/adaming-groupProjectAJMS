@@ -1,6 +1,7 @@
 package com.adaming.groupprojectajms.gestion_ects.controller;
 
 
+import com.adaming.groupprojectajms.gestion_ects.entity.Student;
 import com.adaming.groupprojectajms.gestion_ects.service.CourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentCourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentService;
@@ -23,8 +24,8 @@ public class StudentRestController {
     private StudentCourseService studentCourseService;
 
     @GetMapping(value="/teacher/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView showAll(){
-        return null;
+    public Iterable<Student> showAll(){
+        return this.studentService.fetchAll();
     }
 
     @GetMapping(value="/teacher/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
