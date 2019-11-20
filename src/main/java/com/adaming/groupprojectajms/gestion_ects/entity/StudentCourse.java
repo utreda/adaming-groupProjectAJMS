@@ -18,6 +18,9 @@ public class StudentCourse implements Serializable {
     private Course course;
     private boolean isValidated;
 
+    public StudentCourse() {
+    }
+
     public StudentCourse(Student student, Course course, boolean isValidated) {
         this.student = student;
         this.course = course;

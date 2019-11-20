@@ -1,13 +1,18 @@
 package com.adaming.groupprojectajms.gestion_ects.entity;
 
+import com.adaming.groupprojectajms.gestion_ects.dto.CourseDto;
+import com.adaming.groupprojectajms.gestion_ects.dto.StudentDto;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +26,20 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<StudentCourse> studentCourses;
 
+    public Student(){}
+
     public Student(String firstName, String lastName, @Email @NotNull String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public StudentDto toDto(){
+        List<CourseDto> coursesDto=new ArrayList<>();
+        for(StudentCourse sc:this.studentCourses){
+            coursesDto.add(sc.getCourse().toDto());
+        }
+        return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,this.isAccepted);
     }
 
     public Long getId() {

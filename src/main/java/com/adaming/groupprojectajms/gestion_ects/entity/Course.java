@@ -1,6 +1,9 @@
 package com.adaming.groupprojectajms.gestion_ects.entity;
 
+import com.adaming.groupprojectajms.gestion_ects.dto.CourseDto;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,6 +26,10 @@ public class Course {
         this.name = name;
         this.ects = ects;
         this.teacher=teacher;
+    }
+
+    public CourseDto toDto(){
+        return new CourseDto(this.id,this.name,this.ects);
     }
 
     public Long getId() {
