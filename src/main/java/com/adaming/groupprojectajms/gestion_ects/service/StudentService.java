@@ -22,7 +22,15 @@ public class StudentService {
     }
 
     public void register(Student s) throws UserAlreadyExistException, NullUserException {
-
+        if(s==null){
+            throw new NullUserException();
+        }else{
+            if(this.studentRepository.getStudentByEmail(s.getEmail())==null){
+                this.studentRepository.save(s);
+            }else{
+                throw new UserAlreadyExistException();
+            }
+        }
     }
 
     public Iterable<Student> fetchAll(){

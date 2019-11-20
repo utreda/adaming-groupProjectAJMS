@@ -23,7 +23,15 @@ public class CourseService {
     }
 
     public void register(Course c) throws CourseAlreadyExistException, NullCourseException {
-
+        if(c==null){
+            throw new NullCourseException();
+        }else{
+            if(this.courseRepository.getByName(c.getName())==null){
+                this.courseRepository.save(c);
+            }else{
+                throw new CourseAlreadyExistException();
+            }
+        }
     }
 
     public Iterable<Course> fetchAll(){

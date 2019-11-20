@@ -22,7 +22,15 @@ public class TeacherService {
     }
 
     public void register(Teacher t) throws UserAlreadyExistException, NullUserException {
-
+        if(t==null){
+            throw new NullUserException();
+        }else{
+            if(this.teacherRepository.getTeacherByEmail(t.getEmail())==null){
+                this.teacherRepository.save(t);
+            }else{
+                throw new UserAlreadyExistException();
+            }
+        }
     }
 
     public Iterable<Teacher> fetchAll(){

@@ -20,6 +20,14 @@ public class Teacher{
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Course> courses;
 
+    public Teacher(){}
+
+    public Teacher(String firstName, String lastName, @Email @NotNull String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
