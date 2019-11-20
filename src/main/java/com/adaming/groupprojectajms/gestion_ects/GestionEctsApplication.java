@@ -67,7 +67,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         //On additionne les ects selon que la matière est validée ou pas
         int sects1=0;
         for(StudentCourse sc:s1.getStudentCourses()){
-            if(sc.isValidated()){
+            if(sc.getValidated()){
                 sects1+=sc.getCourse().getEcts();
             }
         }
@@ -83,7 +83,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         s2.setStudentCourses(new ArrayList<>(Arrays.asList(sc4,sc5,sc6,sc7)));
         int sects2=0;
         for(StudentCourse sc:s2.getStudentCourses()){
-            if(sc.isValidated()){
+            if(sc.getValidated()){
                 sects2+=sc.getCourse().getEcts();
             }
         }
@@ -96,7 +96,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         s3.setStudentCourses(new ArrayList<>(Arrays.asList(sc8,sc9)));
         int sects3=0;
         for(StudentCourse sc:s3.getStudentCourses()){
-            if(sc.isValidated()){
+            if(sc.getValidated()){
                 sects3+=sc.getCourse().getEcts();
             }
         }
@@ -108,7 +108,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10)));
         int sects4=0;
         for(StudentCourse sc:s4.getStudentCourses()){
-            if(sc.isValidated()){
+            if(sc.getValidated()){
                 sects4+=sc.getCourse().getEcts();
             }
         }

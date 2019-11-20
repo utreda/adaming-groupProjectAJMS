@@ -11,14 +11,16 @@ public class StudentDto {
     private String lastName;
     private String email;
     private List<CourseDto> coursesDto;
+    private List<Boolean> validations;
     private boolean isAccepted;
 
-    public StudentDto(Long id, String firstName, String lastName, String email, List<CourseDto> coursesDto, boolean isAccepted) {
+    public StudentDto(Long id, String firstName, String lastName, String email, List<CourseDto> coursesDto, List<Boolean> validations,boolean isAccepted) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.coursesDto = coursesDto;
+        this.validations=validations;
         this.isAccepted = isAccepted;
     }
 
@@ -60,6 +62,14 @@ public class StudentDto {
 
     public void setCoursesDto(List<CourseDto> coursesDto) {
         this.coursesDto = coursesDto;
+    }
+
+    public List<Boolean> getValidations() {
+        return validations;
+    }
+
+    public void setValidations(List<Boolean> validations) {
+        this.validations = validations;
     }
 
     public boolean isAccepted() {

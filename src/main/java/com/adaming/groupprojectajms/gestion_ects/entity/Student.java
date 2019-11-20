@@ -39,7 +39,11 @@ public class Student{
         for(StudentCourse sc:this.studentCourses){
             coursesDto.add(sc.getCourse().toDto());
         }
-        return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,this.isAccepted);
+        List<Boolean> validations=new ArrayList<>();
+        for(StudentCourse sc:this.studentCourses){
+            validations.add(sc.getValidated());
+        }
+        return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,validations,this.isAccepted);
     }
 
     public Long getId() {

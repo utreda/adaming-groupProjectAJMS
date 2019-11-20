@@ -16,12 +16,12 @@ public class StudentCourse implements Serializable {
     @ManyToOne
     @JoinColumn
     private Course course;
-    private boolean isValidated;
+    private Boolean isValidated;
 
     public StudentCourse() {
     }
 
-    public StudentCourse(Student student, Course course, boolean isValidated) {
+    public StudentCourse(Student student, Course course, Boolean isValidated) {
         this.student = student;
         this.course = course;
         this.isValidated = isValidated;
@@ -51,11 +51,11 @@ public class StudentCourse implements Serializable {
         this.course = course;
     }
 
-    public boolean isValidated() {
+    public Boolean getValidated() {
         return isValidated;
     }
 
-    public void setValidated(boolean validated) {
+    public void setValidated(Boolean validated) {
         isValidated = validated;
     }
 }
