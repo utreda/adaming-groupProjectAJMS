@@ -1,9 +1,9 @@
-package com.adaminggroupProjectAJMS.poc.service;
+package com.adaming.groupprojectajms.gestion_ects.service;
 
-import com.adaminggroupProjectAJMS.poc.entity.Student;
-import com.adaminggroupProjectAJMS.poc.exception.NullUserException;
-import com.adaminggroupProjectAJMS.poc.exception.UserAlreadyExistException;
-import com.adaminggroupProjectAJMS.poc.repository.StudentRepository;
+import com.adaming.groupprojectajms.gestion_ects.entity.Student;
+import com.adaming.groupprojectajms.gestion_ects.exception.NullUserException;
+import com.adaming.groupprojectajms.gestion_ects.exception.UserAlreadyExistException;
+import com.adaming.groupprojectajms.gestion_ects.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,6 @@
-package com.adaminggroupProjectAJMS.poc.service;
+package com.adaming.groupprojectajms.gestion_ects.service;
 
-import com.adaminggroupProjectAJMS.poc.entity.StudentCourse;
-import com.adaminggroupProjectAJMS.poc.repository.StudentCourseRepository;
+import com.adaming.groupprojectajms.gestion_ects.repository.StudentCourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

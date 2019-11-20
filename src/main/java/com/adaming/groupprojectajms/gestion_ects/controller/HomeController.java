@@ -1,6 +1,6 @@
-package com.adaminggroupProjectAJMS.poc.controller;
+package com.adaming.groupprojectajms.gestion_ects.controller;
 
-import com.adaminggroupProjectAJMS.poc.service.StudentService;
+import com.adaming.groupprojectajms.gestion_ects.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +37,8 @@ public class HomeController {
         return null;
     }
 
-    @PostMapping("/student/{id}")
+    /*@PostMapping("/student/{id}")
     public ModelAndView studentLogin(@PathVariable("id") Long id){
         return null;
-    }
+    }*/
 }

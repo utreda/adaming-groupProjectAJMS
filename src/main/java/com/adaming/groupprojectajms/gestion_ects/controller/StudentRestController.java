@@ -1,15 +1,16 @@
-package com.adaminggroupProjectAJMS.poc.controller;
+package com.adaming.groupprojectajms.gestion_ects.controller;
 
-import com.adaminggroupProjectAJMS.poc.service.CourseService;
-import com.adaminggroupProjectAJMS.poc.service.StudentCourseService;
-import com.adaminggroupProjectAJMS.poc.service.StudentService;
+
+import com.adaming.groupprojectajms.gestion_ects.service.CourseService;
+import com.adaming.groupprojectajms.gestion_ects.service.StudentCourseService;
+import com.adaming.groupprojectajms.gestion_ects.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
-
 @RestController
+@RequestMapping("/webapi")
 public class StudentRestController {
 
     @Autowired
@@ -21,22 +22,22 @@ public class StudentRestController {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    @GetMapping("/teacher/students")
+    @GetMapping(value="/teacher/students", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView showAll(){
         return null;
     }
 
-    @GetMapping("/teacher/student/{id}")
+    @GetMapping(value="/teacher/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView showForTeacher(@PathVariable("id") Long id){
         return null;
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping(value="/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView showForStudent(@PathVariable("id") Long id){
         return null;
     }
 
-    @PostMapping("/student/{id}")
+    @PostMapping(path="/student/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView addCourse(@PathVariable("id") Long id){
         return null;
     }

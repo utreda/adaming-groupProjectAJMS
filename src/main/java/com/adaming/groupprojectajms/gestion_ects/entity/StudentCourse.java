@@ -1,4 +1,4 @@
-package com.adaminggroupProjectAJMS.poc.entity;
+package com.adaming.groupprojectajms.gestion_ects.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.adaminggroupProjectAJMS.poc.exception;
+package com.adaming.groupprojectajms.gestion_ects.exception;
 
 public class CourseAlreadyExistException extends Exception {
 

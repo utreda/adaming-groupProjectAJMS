@@ -1,9 +1,10 @@
-package com.adaminggroupProjectAJMS.poc.service;
+package com.adaming.groupprojectajms.gestion_ects.service;
 
-import com.adaminggroupProjectAJMS.poc.entity.Course;
-import com.adaminggroupProjectAJMS.poc.exception.CourseAlreadyExistException;
-import com.adaminggroupProjectAJMS.poc.exception.NullCourseException;
-import com.adaminggroupProjectAJMS.poc.repository.CourseRepository;
+
+import com.adaming.groupprojectajms.gestion_ects.entity.Course;
+import com.adaming.groupprojectajms.gestion_ects.exception.CourseAlreadyExistException;
+import com.adaming.groupprojectajms.gestion_ects.exception.NullCourseException;
+import com.adaming.groupprojectajms.gestion_ects.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

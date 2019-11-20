@@ -1,6 +1,6 @@
-package com.adaminggroupProjectAJMS.poc.repository;
+package com.adaming.groupprojectajms.gestion_ects.repository;
 
-import com.adaminggroupProjectAJMS.poc.entity.Course;
+import com.adaming.groupprojectajms.gestion_ects.entity.Course;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
