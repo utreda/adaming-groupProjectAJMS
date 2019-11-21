@@ -6,6 +6,7 @@ import com.adaming.groupprojectajms.gestion_ects.dto.StudentDto;
 import com.adaming.groupprojectajms.gestion_ects.dto.TeacherDto;
 import com.adaming.groupprojectajms.gestion_ects.entity.Course;
 import com.adaming.groupprojectajms.gestion_ects.entity.Student;
+import com.adaming.groupprojectajms.gestion_ects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestion_ects.entity.Teacher;
 import com.adaming.groupprojectajms.gestion_ects.service.CourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentCourseService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/gestion_ects")
@@ -39,6 +41,43 @@ public class StudentRestController {
             teachersDto.add(t.toDto());
         }
         return teachersDto;
+    }
+
+    @GetMapping(value="/teacher/{id}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CourseDto> getCoursesForTeacher(@PathVariable("id") Long id){
+        Teacher teacher=this.teacherService.fetchById(id);
+        List<CourseDto> coursesDto=new ArrayList<>();
+        for (Course c:teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
+            coursesDto.add(c.toDto());
+        }
+        return coursesDto;
+    }
+
+    @GetMapping(value="/teacher/{id}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getStudentsForTeacher(@PathVariable("id") Long id){
+        Teacher teacher=this.teacherService.fetchById(id);
+        List<StudentDto> studentsDto=new ArrayList<>();
+        for (Course c:teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
+            for (StudentCourse sc:c.getStudentCourses()) {
+                studentsDto.add(sc.getStudent().toDto());
+            }
+        }
+        return studentsDto;
+    }
+
+    @GetMapping(value="/teacher/{tId}/course/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getCoursesForTeacherForCourse(@PathVariable("tId") Long tId,@PathVariable("cId") Long cId){
+        Teacher teacher=this.teacherService.fetchById(tId);
+        List<CourseDto> coursesDto=new ArrayList<>();
+        List<StudentDto> studentsDto=new ArrayList<>();
+        for (Course c:teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
+            if(c.getId()==cId){
+                for (StudentCourse sc:c.getStudentCourses()) {
+                    studentsDto.add(sc.getStudent().toDto());
+                }
+            }
+        }
+        return studentsDto;
     }
 
     @GetMapping(value="/students", produces = MediaType.APPLICATION_JSON_VALUE)
