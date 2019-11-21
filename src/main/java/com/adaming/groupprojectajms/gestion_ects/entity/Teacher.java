@@ -1,8 +1,12 @@
 package com.adaming.groupprojectajms.gestion_ects.entity;
 
+import com.adaming.groupprojectajms.gestion_ects.dto.CourseDto;
+import com.adaming.groupprojectajms.gestion_ects.dto.TeacherDto;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,6 +30,14 @@ public class Teacher{
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public TeacherDto toDto(){
+        List<CourseDto> coursesDto=new ArrayList<>();
+        for(Course c:this.courses){
+            coursesDto.add(c.toDto());
+        }
+        return new TeacherDto(this.id,this.firstName,this.lastName,this.email,coursesDto);
     }
 
     public Long getId() {
