@@ -40,4 +40,8 @@ public class TeacherService {
     public Teacher fetchById(Long id){
         return this.teacherRepository.findById(id).orElse(null);
     }
+
+    public void deleteById(Long id){
+        this.teacherRepository.deleteById(id);
+    }
 }

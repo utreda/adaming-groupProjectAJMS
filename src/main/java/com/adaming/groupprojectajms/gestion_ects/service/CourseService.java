@@ -41,4 +41,8 @@ public class CourseService {
     public Course fetchById(Long id){
         return this.courseRepository.findById(id).orElse(null);
     }
+
+    public void deleteById(Long id){
+        this.courseRepository.deleteById(id);
+    }
 }

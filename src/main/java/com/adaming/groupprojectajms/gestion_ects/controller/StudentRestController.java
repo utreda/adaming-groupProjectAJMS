@@ -1,6 +1,7 @@
 package com.adaming.groupprojectajms.gestion_ects.controller;
 
 
+import com.adaming.groupprojectajms.gestion_ects.dto.AddCourseDto;
 import com.adaming.groupprojectajms.gestion_ects.dto.CourseDto;
 import com.adaming.groupprojectajms.gestion_ects.dto.StudentDto;
 import com.adaming.groupprojectajms.gestion_ects.dto.TeacherDto;
@@ -8,6 +9,8 @@ import com.adaming.groupprojectajms.gestion_ects.entity.Course;
 import com.adaming.groupprojectajms.gestion_ects.entity.Student;
 import com.adaming.groupprojectajms.gestion_ects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestion_ects.entity.Teacher;
+import com.adaming.groupprojectajms.gestion_ects.exception.CourseAlreadyExistException;
+import com.adaming.groupprojectajms.gestion_ects.exception.NullCourseException;
 import com.adaming.groupprojectajms.gestion_ects.service.CourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentCourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentService;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -105,15 +109,33 @@ public class StudentRestController {
         return coursesDto;
     }
 
-    @PostMapping(path="/student/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public StudentDto addCourse(@PathVariable("id") Long id){
-        return getStudent(id);
+    @PostMapping(path="/teacher/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CourseDto> addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id){
+        try {
+            this.courseService.register(new Course(courseDto.getName(),courseDto.getEcts(),this.teacherService.fetchById(id)));
+        } catch (CourseAlreadyExistException | NullCourseException e) {
+            e.printStackTrace();
+        }
+        return getCoursesForTeacher(id);
     }
 
-    @DeleteMapping("/student/{id}/studentcourse/{scId}")
+    /*@PostMapping(path="/student/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public StudentDto addCourse(@PathVariable("id") Long id){
+        Student student=this.studentService.fetchById(id);
+        student.getStudentCourses().add()
+        return getStudent(id);
+    }*/
+
+    /*@DeleteMapping(value = "/teacher/{tId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<TeacherDto> deleteCourse(@PathVariable("tId") Long tId/*, @PathVariable("cId") Long cId){
+        this.teacherService.deleteById(tId);
+        return getTeachers();
+    }*/
+
+    /*@DeleteMapping("studentcourse/{scId}")
     public StudentDto removeCourse(@PathVariable("id") Long id, @PathVariable("scId") Long scId){
         return getStudent(id);
-    }
+    }*/
 
     public StudentService getStudentService() {
         return studentService;

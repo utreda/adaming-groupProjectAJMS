@@ -40,4 +40,8 @@ public class StudentService {
     public Student fetchById(Long id){
         return this.studentRepository.findById(id).orElse(null);
     }
+
+    public void deleteById(Long id){
+        this.studentRepository.deleteById(id);
+    }
 }
