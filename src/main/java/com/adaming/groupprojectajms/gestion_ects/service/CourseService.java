@@ -6,7 +6,9 @@ import com.adaming.groupprojectajms.gestion_ects.exception.CourseAlreadyExistExc
 import com.adaming.groupprojectajms.gestion_ects.exception.NullCourseException;
 import com.adaming.groupprojectajms.gestion_ects.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CourseService {
@@ -22,6 +24,7 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
+    @Transactional
     public void register(Course c) throws CourseAlreadyExistException, NullCourseException {
         if(c==null){
             throw new NullCourseException();
@@ -42,7 +45,13 @@ public class CourseService {
         return this.courseRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void deleteById(Long id){
         this.courseRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void delete(Course c){
+        this.courseRepository.delete(c);
     }
 }

@@ -5,7 +5,10 @@ import com.adaming.groupprojectajms.gestion_ects.exception.NullUserException;
 import com.adaming.groupprojectajms.gestion_ects.exception.UserAlreadyExistException;
 import com.adaming.groupprojectajms.gestion_ects.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class StudentService {
@@ -21,6 +24,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    @Transactional
     public void register(Student s) throws UserAlreadyExistException, NullUserException {
         if(s==null){
             throw new NullUserException();
@@ -41,7 +45,13 @@ public class StudentService {
         return this.studentRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void deleteById(Long id){
         this.studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void delete(Student s){
+        this.studentRepository.delete(s);
     }
 }

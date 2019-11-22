@@ -21,7 +21,7 @@ public class Teacher{
     @Email
     @NotNull
     private String email;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Course> courses;
 
     public Teacher(){}

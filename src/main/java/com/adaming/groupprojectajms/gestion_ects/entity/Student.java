@@ -23,7 +23,7 @@ public class Student{
     @NotNull
     private String email;
     private boolean isAccepted;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
     public Student(){}

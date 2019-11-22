@@ -70,7 +70,7 @@ public class StudentRestController {
     }
 
     @GetMapping(value="/teacher/{tId}/course/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getCoursesForTeacherForCourse(@PathVariable("tId") Long tId,@PathVariable("cId") Long cId){
+    public List<StudentDto> getStudentsForTeacherForCourse(@PathVariable("tId") Long tId,@PathVariable("cId") Long cId){
         Teacher teacher=this.teacherService.fetchById(tId);
         List<CourseDto> coursesDto=new ArrayList<>();
         List<StudentDto> studentsDto=new ArrayList<>();
@@ -109,7 +109,7 @@ public class StudentRestController {
         return coursesDto;
     }
 
-    @PostMapping(path="/teacher/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/teacher/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CourseDto> addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id){
         try {
             this.courseService.register(new Course(courseDto.getName(),courseDto.getEcts(),this.teacherService.fetchById(id)));
@@ -119,23 +119,15 @@ public class StudentRestController {
         return getCoursesForTeacher(id);
     }
 
-    /*@PostMapping(path="/student/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public StudentDto addCourse(@PathVariable("id") Long id){
-        Student student=this.studentService.fetchById(id);
-        student.getStudentCourses().add()
-        return getStudent(id);
-    }*/
-
-    /*@DeleteMapping(value = "/teacher/{tId}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<TeacherDto> deleteCourse(@PathVariable("tId") Long tId/*, @PathVariable("cId") Long cId){
-        this.teacherService.deleteById(tId);
-        return getTeachers();
-    }*/
-
-    /*@DeleteMapping("studentcourse/{scId}")
-    public StudentDto removeCourse(@PathVariable("id") Long id, @PathVariable("scId") Long scId){
-        return getStudent(id);
-    }*/
+    @DeleteMapping("/course/{cId}")
+    public List<CourseDto> deleteCourse(@PathVariable("cId") Long cId){
+        Course course=this.courseService.fetchById(cId);
+        for(StudentCourse sc:course.getStudentCourses()){
+            this.studentCourseService.deleteById(sc.getId());
+        }
+        this.courseService.deleteById(cId);
+        return getCourses();
+    }
 
     public StudentService getStudentService() {
         return studentService;
