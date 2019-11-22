@@ -47,6 +47,13 @@ public class StudentRestController {
         return teachersDto;
     }
 
+    @GetMapping(value="/teacher/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TeacherDto getTeacher(@PathVariable("id") Long id){
+        Teacher teacher=this.teacherService.fetchById(id);
+        teacher.setCourses(teacher.getCourses().stream().distinct().collect(Collectors.toList()));
+        return teacher.toDto();
+    }
+
     @GetMapping(value="/teacher/{id}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CourseDto> getCoursesForTeacher(@PathVariable("id") Long id){
         Teacher teacher=this.teacherService.fetchById(id);
