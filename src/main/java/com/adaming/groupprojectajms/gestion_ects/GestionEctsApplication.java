@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +25,9 @@ public class GestionEctsApplication implements CommandLineRunner {
     }
 
     @Autowired
-    private CourseService courseService;
-    @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private CourseService courseService;
     @Autowired
     private StudentService studentService;
 

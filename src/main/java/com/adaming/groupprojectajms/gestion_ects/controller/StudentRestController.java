@@ -25,9 +25,9 @@ public class StudentRestController {
     @Autowired
     private TeacherService teacherService;
     @Autowired
-    private StudentService studentService;
-    @Autowired
     private CourseService courseService;
+    @Autowired
+    private StudentService studentService;
     @Autowired
     private StudentCourseService studentCourseService;
 

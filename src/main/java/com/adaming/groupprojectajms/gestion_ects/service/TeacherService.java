@@ -47,9 +47,4 @@ public class TeacherService {
     public void deleteById(Long id){
         this.teacherRepository.deleteById(id);
     }
-
-    @Transactional
-    public void delete(Teacher t){
-        this.teacherRepository.delete(t);
-    }
 }

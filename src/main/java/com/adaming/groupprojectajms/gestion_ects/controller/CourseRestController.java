@@ -26,13 +26,13 @@ import java.util.stream.Collectors;
 public class CourseRestController {
 
     @Autowired
+    private TeacherService teacherService;
+    @Autowired
     private CourseService courseService;
     @Autowired
     private StudentService studentService;
     @Autowired
     private StudentCourseService studentCourseService;
-    @Autowired
-    private TeacherService teacherService;
 
     @PostMapping(path="/teacher/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CourseDto> addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id){

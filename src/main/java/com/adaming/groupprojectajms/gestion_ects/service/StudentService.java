@@ -56,21 +56,16 @@ public class StudentService {
         }
     }
 
-    @Transactional
-    public void deleteById(Long id){
-        this.studentRepository.deleteById(id);
-    }
-
-    @Transactional
-    public void delete(Student s){
-        this.studentRepository.delete(s);
-    }
-
     public Iterable<Student> fetchAll(){
         return this.studentRepository.findAll();
     }
 
     public Student fetchById(Long id){
         return this.studentRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public void deleteById(Long id){
+        this.studentRepository.deleteById(id);
     }
 }

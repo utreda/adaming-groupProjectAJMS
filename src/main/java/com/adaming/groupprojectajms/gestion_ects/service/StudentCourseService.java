@@ -24,9 +24,4 @@ public class StudentCourseService{
     public void deleteById(Long id){
         this.studentCourseRepository.deleteById(id);
     }
-
-    @Transactional
-    public void delete(StudentCourse sc){
-        this.studentCourseRepository.delete(sc);
-    }
 }
