@@ -11,6 +11,7 @@ public interface CourseRepository extends CrudRepository<Course,Long> {
 
     @Query("SELECT c FROM Course As c WHERE c.name=:name")
     Course getByName(String name);
+
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("DELETE FROM Course WHERE id =:id")
     void deleteById(Long id);

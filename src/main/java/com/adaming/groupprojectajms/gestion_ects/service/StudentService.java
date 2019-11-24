@@ -1,6 +1,7 @@
 package com.adaming.groupprojectajms.gestion_ects.service;
 
 import com.adaming.groupprojectajms.gestion_ects.entity.Student;
+import com.adaming.groupprojectajms.gestion_ects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestion_ects.exception.NullUserException;
 import com.adaming.groupprojectajms.gestion_ects.exception.UserAlreadyExistException;
 import com.adaming.groupprojectajms.gestion_ects.repository.StudentRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -37,12 +39,22 @@ public class StudentService {
         }
     }
 
-    public Iterable<Student> fetchAll(){
-        return this.studentRepository.findAll();
-    }
-
-    public Student fetchById(Long id){
-        return this.studentRepository.findById(id).orElse(null);
+    @Transactional
+    public void checkAcceptations(){
+        Iterable<Student> students=this.fetchAll();
+        for(Student s:students) {
+            int sects = 0;
+            for (StudentCourse sc : s.getStudentCourses()) {
+                if (sc.getValidated()) {
+                    sects += sc.getCourse().getEcts();
+                }
+            }
+            if (sects >= 20) {
+                this.studentRepository.setAcceptation(true, s.getId());
+            }else{
+                this.studentRepository.setAcceptation(false, s.getId());
+            }
+        }
     }
 
     @Transactional
@@ -53,5 +65,13 @@ public class StudentService {
     @Transactional
     public void delete(Student s){
         this.studentRepository.delete(s);
+    }
+
+    public Iterable<Student> fetchAll(){
+        return this.studentRepository.findAll();
+    }
+
+    public Student fetchById(Long id){
+        return this.studentRepository.findById(id).orElse(null);
     }
 }

@@ -6,7 +6,6 @@ import com.adaming.groupprojectajms.gestion_ects.dto.StudentDto;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class Student{
     @Email
     @NotNull
     private String email;
-    private boolean isAccepted;
+    private boolean accepted;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
@@ -43,7 +42,7 @@ public class Student{
         for(StudentCourse sc:this.studentCourses){
             validations.add(sc.getValidated());
         }
-        return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,validations,this.isAccepted);
+        return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,validations,this.accepted);
     }
 
     public Long getId() {
@@ -79,11 +78,11 @@ public class Student{
     }
 
     public boolean isAccepted() {
-        return isAccepted;
+        return accepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 
     public List<StudentCourse> getStudentCourses() {

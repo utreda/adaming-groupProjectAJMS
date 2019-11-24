@@ -3,12 +3,14 @@ package com.adaming.groupprojectajms.gestion_ects.controller;
 import com.adaming.groupprojectajms.gestion_ects.dto.AddCourseDto;
 import com.adaming.groupprojectajms.gestion_ects.dto.CourseDto;
 import com.adaming.groupprojectajms.gestion_ects.entity.Course;
+import com.adaming.groupprojectajms.gestion_ects.entity.Student;
 import com.adaming.groupprojectajms.gestion_ects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestion_ects.entity.Teacher;
 import com.adaming.groupprojectajms.gestion_ects.exception.CourseAlreadyExistException;
 import com.adaming.groupprojectajms.gestion_ects.exception.NullCourseException;
 import com.adaming.groupprojectajms.gestion_ects.service.CourseService;
 import com.adaming.groupprojectajms.gestion_ects.service.StudentCourseService;
+import com.adaming.groupprojectajms.gestion_ects.service.StudentService;
 import com.adaming.groupprojectajms.gestion_ects.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +27,8 @@ public class CourseRestController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private StudentService studentService;
     @Autowired
     private StudentCourseService studentCourseService;
     @Autowired
@@ -67,6 +71,7 @@ public class CourseRestController {
             this.studentCourseService.deleteById(sc.getId());
         }
         this.courseService.deleteById(cId);
+        this.studentService.checkAcceptations();
         return getCourses();
     }
 
@@ -76,6 +81,14 @@ public class CourseRestController {
 
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;
+    }
+
+    public StudentService getStudentService() {
+        return studentService;
+    }
+
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     public StudentCourseService getStudentCourseService() {
