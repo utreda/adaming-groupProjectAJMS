@@ -6,7 +6,6 @@ import com.adaming.groupprojectajms.gestion_ects.exception.NullUserException;
 import com.adaming.groupprojectajms.gestion_ects.exception.UserAlreadyExistException;
 import com.adaming.groupprojectajms.gestion_ects.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
