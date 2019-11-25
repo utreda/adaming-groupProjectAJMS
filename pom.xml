@@ -8,10 +8,10 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.adaming.groupProjectAJMS</groupId>
-    <artifactId>gestion_ects</artifactId>
+    <groupId>com.adaming.groupprojectajms</groupId>
+    <artifactId>gestion-ects</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gestion_ects</name>
+    <name>gestion-ects</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
