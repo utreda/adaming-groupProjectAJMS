@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/gestion_ects")
+@RequestMapping("/gestion_ects/api")
 public class TeacherRestController {
 
     @Autowired
@@ -31,11 +31,10 @@ public class TeacherRestController {
         return teachersDto;
     }
 
-    @GetMapping(value = "/teacher/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/teachers/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public TeacherDto getTeacher(@PathVariable("id") Long id) {
         Teacher teacher = this.teacherService.fetchById(id);
         teacher.setCourses(teacher.getCourses().stream().distinct().collect(Collectors.toList()));
         return teacher.toDto();
     }
-
 }

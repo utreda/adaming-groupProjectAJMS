@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/gestion_ects")
+@RequestMapping("/gestion_ects/api")
 public class CourseRestController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class CourseRestController {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    @PostMapping(path = "/teacher/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/teachers/{id}/courses", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CourseDto> addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id) {
         try {
             this.courseService.register(new Course(courseDto.getName(), courseDto.getEcts(), this.teacherService.fetchById(id)));
@@ -53,7 +53,7 @@ public class CourseRestController {
         return coursesDto;
     }
 
-    @GetMapping(value = "/teacher/{id}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/teachers/{id}/courses", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CourseDto> getCoursesForTeacher(@PathVariable("id") Long id) {
         Teacher teacher = this.teacherService.fetchById(id);
         List<CourseDto> coursesDto = new ArrayList<>();
@@ -63,7 +63,7 @@ public class CourseRestController {
         return coursesDto;
     }
 
-    @DeleteMapping("/course/{cId}")
+    @DeleteMapping("/courses/{cId}")
     public List<CourseDto> deleteCourse(@PathVariable("cId") Long cId) {
         Course course = this.courseService.fetchById(cId);
         for (StudentCourse sc : course.getStudentCourses()) {
@@ -73,5 +73,4 @@ public class CourseRestController {
         this.studentService.checkAcceptations();
         return getCourses();
     }
-
 }

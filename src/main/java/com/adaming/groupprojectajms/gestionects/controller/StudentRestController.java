@@ -22,17 +22,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/gestion_ects")
+@RequestMapping("/gestion_ects/api")
 public class StudentRestController {
 
     @Autowired
     private TeacherService teacherService;
     @Autowired
-    private CourseService courseService;
-    @Autowired
     private StudentService studentService;
-    @Autowired
-    private StudentCourseService studentCourseService;
 
     @GetMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDto> getStudents() {
@@ -44,12 +40,12 @@ public class StudentRestController {
         return studentsDto;
     }
 
-    @GetMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public StudentDto getStudent(@PathVariable("id") Long id) {
         return this.studentService.fetchById(id).toDto();
     }
 
-    @GetMapping(value = "/teacher/{id}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/teachers/{id}/students", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDto> getStudentsForTeacher(@PathVariable("id") Long id) {
         Teacher teacher = this.teacherService.fetchById(id);
         List<StudentDto> studentsDto = new ArrayList<>();
@@ -61,10 +57,9 @@ public class StudentRestController {
         return studentsDto;
     }
 
-    @GetMapping(value = "/teacher/{tId}/course/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/teachers/{tId}/courses/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDto> getStudentsForTeacherForCourse(@PathVariable("tId") Long tId, @PathVariable("cId") Long cId) {
         Teacher teacher = this.teacherService.fetchById(tId);
-        List<CourseDto> coursesDto = new ArrayList<>();
         List<StudentDto> studentsDto = new ArrayList<>();
         for (Course c : teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
             if (c.getId() == cId) {
