@@ -3,7 +3,6 @@ package com.adaming.groupprojectajms.gestionects.entity;
 import com.adaming.groupprojectajms.gestionects.dto.CourseDto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,27 +14,29 @@ public class Course {
     private Long id;
     private String name;
     private int ects;
+
     @ManyToOne
     private Teacher teacher;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
-    public Course(){}
+    public Course() {
+    }
 
     public Course(String name, int ects) {
         this.name = name;
         this.ects = ects;
-        this.teacher=teacher;
     }
 
-    public Course(String name, int ects,Teacher teacher) {
+    public Course(String name, int ects, Teacher teacher) {
         this.name = name;
         this.ects = ects;
-        this.teacher=teacher;
+        this.teacher = teacher;
     }
 
-    public CourseDto toDto(){
-        return new CourseDto(this.id,this.name,this.ects);
+    public CourseDto toDto() {
+        return new CourseDto(this.id, this.name, this.ects);
     }
 
     public Long getId() {

@@ -18,9 +18,11 @@ public class Teacher{
     private Long id;
     private String firstName;
     private String lastName;
+
     @Email
     @NotNull
     private String email;
+
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Course> courses;
 

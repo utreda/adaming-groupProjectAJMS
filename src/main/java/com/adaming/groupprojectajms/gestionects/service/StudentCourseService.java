@@ -6,21 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class StudentCourseService{
+public class StudentCourseService {
 
     @Autowired
     private StudentCourseRepository studentCourseRepository;
 
-    public StudentCourseRepository getStudentCourseRepository() {
-        return studentCourseRepository;
-    }
-
-    public void setStudentCourseRepository(StudentCourseRepository studentCourseRepository) {
-        this.studentCourseRepository = studentCourseRepository;
-    }
 
     @Transactional
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         this.studentCourseRepository.deleteById(id);
     }
 }

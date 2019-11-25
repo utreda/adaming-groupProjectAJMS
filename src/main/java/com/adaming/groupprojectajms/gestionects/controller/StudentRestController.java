@@ -12,7 +12,10 @@ import com.adaming.groupprojectajms.gestionects.service.StudentService;
 import com.adaming.groupprojectajms.gestionects.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,41 +34,41 @@ public class StudentRestController {
     @Autowired
     private StudentCourseService studentCourseService;
 
-    @GetMapping(value="/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getStudents(){
-        Iterable<Student> students=this.studentService.fetchAll();
-        List<StudentDto> studentsDto=new ArrayList<>();
-        for (Student s:students) {
+    @GetMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getStudents() {
+        Iterable<Student> students = this.studentService.fetchAll();
+        List<StudentDto> studentsDto = new ArrayList<>();
+        for (Student s : students) {
             studentsDto.add(s.toDto());
         }
         return studentsDto;
     }
 
-    @GetMapping(value="/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public StudentDto getStudent(@PathVariable("id") Long id){
+    @GetMapping(value = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StudentDto getStudent(@PathVariable("id") Long id) {
         return this.studentService.fetchById(id).toDto();
     }
 
-    @GetMapping(value="/teacher/{id}/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getStudentsForTeacher(@PathVariable("id") Long id){
-        Teacher teacher=this.teacherService.fetchById(id);
-        List<StudentDto> studentsDto=new ArrayList<>();
-        for (Course c:teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
-            for (StudentCourse sc:c.getStudentCourses()) {
+    @GetMapping(value = "/teacher/{id}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getStudentsForTeacher(@PathVariable("id") Long id) {
+        Teacher teacher = this.teacherService.fetchById(id);
+        List<StudentDto> studentsDto = new ArrayList<>();
+        for (Course c : teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
+            for (StudentCourse sc : c.getStudentCourses()) {
                 studentsDto.add(sc.getStudent().toDto());
             }
         }
         return studentsDto;
     }
 
-    @GetMapping(value="/teacher/{tId}/course/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getStudentsForTeacherForCourse(@PathVariable("tId") Long tId,@PathVariable("cId") Long cId){
-        Teacher teacher=this.teacherService.fetchById(tId);
-        List<CourseDto> coursesDto=new ArrayList<>();
-        List<StudentDto> studentsDto=new ArrayList<>();
-        for (Course c:teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
-            if(c.getId()==cId){
-                for (StudentCourse sc:c.getStudentCourses()) {
+    @GetMapping(value = "/teacher/{tId}/course/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getStudentsForTeacherForCourse(@PathVariable("tId") Long tId, @PathVariable("cId") Long cId) {
+        Teacher teacher = this.teacherService.fetchById(tId);
+        List<CourseDto> coursesDto = new ArrayList<>();
+        List<StudentDto> studentsDto = new ArrayList<>();
+        for (Course c : teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
+            if (c.getId() == cId) {
+                for (StudentCourse sc : c.getStudentCourses()) {
                     studentsDto.add(sc.getStudent().toDto());
                 }
             }
@@ -73,27 +76,4 @@ public class StudentRestController {
         return studentsDto;
     }
 
-    public StudentService getStudentService() {
-        return studentService;
-    }
-
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-    public CourseService getCourseService() {
-        return courseService;
-    }
-
-    public void setCourseService(CourseService courseService) {
-        this.courseService = courseService;
-    }
-
-    public StudentCourseService getStudentCourseService() {
-        return studentCourseService;
-    }
-
-    public void setStudentCourseService(StudentCourseService studentCourseService) {
-        this.studentCourseService = studentCourseService;
-    }
 }

@@ -18,10 +18,12 @@ public class Student{
     private Long id;
     private String firstName;
     private String lastName;
+
     @Email
     @NotNull
     private String email;
     private boolean accepted;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
