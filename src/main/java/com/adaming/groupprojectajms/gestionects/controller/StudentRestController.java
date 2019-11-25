@@ -5,6 +5,7 @@ import com.adaming.groupprojectajms.gestionects.entity.Course;
 import com.adaming.groupprojectajms.gestionects.entity.Student;
 import com.adaming.groupprojectajms.gestionects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestionects.entity.Teacher;
+import com.adaming.groupprojectajms.gestionects.service.CourseService;
 import com.adaming.groupprojectajms.gestionects.service.StudentService;
 import com.adaming.groupprojectajms.gestionects.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class StudentRestController {
     private TeacherService teacherService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private CourseService courseService;
 
     @GetMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDto> getStudents() {
@@ -66,4 +69,15 @@ public class StudentRestController {
         return studentsDto;
     }
 
+    @GetMapping(value = "/students/courses/{cId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<StudentDto> getStudentsForCourse(@PathVariable("cId") Long cId) {
+        Course course = this.courseService.fetchById(cId);
+        List<StudentDto> studentsDto = new ArrayList<>();
+        for (StudentCourse sc : course.getStudentCourses()) {
+            studentsDto.add(sc.getStudent().toDto());
+        }
+        return studentsDto;
+    }
+
 }
+
