@@ -1,6 +1,7 @@
 package com.adaming.groupprojectajms.gestionects.controller;
 
 import com.adaming.groupprojectajms.gestionects.dto.StudentDto;
+import com.adaming.groupprojectajms.gestionects.dto.StudentDtoForCourse;
 import com.adaming.groupprojectajms.gestionects.entity.Course;
 import com.adaming.groupprojectajms.gestionects.entity.Student;
 import com.adaming.groupprojectajms.gestionects.entity.StudentCourse;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/gestion_ects/api")
 public class StudentRestController {
@@ -70,11 +71,11 @@ public class StudentRestController {
     }
 
     @GetMapping(value = "/students/courses/{cId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getStudentsForCourse(@PathVariable("cId") Long cId) {
+    public List<StudentDtoForCourse> getStudentsForCourse(@PathVariable("cId") Long cId) {
         Course course = this.courseService.fetchById(cId);
-        List<StudentDto> studentsDto = new ArrayList<>();
+        List<StudentDtoForCourse> studentsDto = new ArrayList<>();
         for (StudentCourse sc : course.getStudentCourses()) {
-            studentsDto.add(sc.getStudent().toDto());
+            studentsDto.add(sc.getStudent().toDtoForCourse(cId));
         }
         return studentsDto;
     }

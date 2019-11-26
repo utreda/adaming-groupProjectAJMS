@@ -2,6 +2,7 @@ package com.adaming.groupprojectajms.gestionects.entity;
 
 import com.adaming.groupprojectajms.gestionects.dto.CourseDto;
 import com.adaming.groupprojectajms.gestionects.dto.StudentDto;
+import com.adaming.groupprojectajms.gestionects.dto.StudentDtoForCourse;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -45,6 +46,16 @@ public class Student{
             validations.add(sc.getValidated());
         }
         return new StudentDto(this.id,this.firstName,this.lastName,this.email,coursesDto,validations,this.accepted);
+    }
+
+    public StudentDtoForCourse toDtoForCourse(Long id){
+        boolean validation=false;
+        for(StudentCourse sc:this.studentCourses){
+            if (sc.getCourse().getId()==id) {
+                validation=sc.getValidated();
+            }
+        }
+        return new StudentDtoForCourse(this.id,this.firstName,this.lastName,this.email,validation,this.accepted);
     }
 
     public Long getId() {
