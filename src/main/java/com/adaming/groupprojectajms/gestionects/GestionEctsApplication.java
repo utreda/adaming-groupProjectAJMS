@@ -4,7 +4,6 @@ import com.adaming.groupprojectajms.gestionects.entity.Course;
 import com.adaming.groupprojectajms.gestionects.entity.Student;
 import com.adaming.groupprojectajms.gestionects.entity.StudentCourse;
 import com.adaming.groupprojectajms.gestionects.entity.Teacher;
-import com.adaming.groupprojectajms.gestionects.repository.StudentCourseRepository;
 import com.adaming.groupprojectajms.gestionects.service.CourseService;
 import com.adaming.groupprojectajms.gestionects.service.StudentService;
 import com.adaming.groupprojectajms.gestionects.service.TeacherService;
@@ -13,7 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,9 +82,9 @@ public class GestionEctsApplication implements CommandLineRunner {
         checkAcceptation(s1);
         //Etudiant B
         StudentCourse sc4=new StudentCourse(s2,c1,true);
-        StudentCourse sc5=new StudentCourse(s2,c5,true);
-        StudentCourse sc6=new StudentCourse(s2,c6,true);
-        StudentCourse sc7=new StudentCourse(s2,c2,false);
+        StudentCourse sc5=new StudentCourse(s2,c2,true);
+        StudentCourse sc6=new StudentCourse(s2,c5,true);
+        StudentCourse sc7=new StudentCourse(s2,c6,false);
         s2.setStudentCourses(new ArrayList<>(Arrays.asList(sc4,sc5,sc6,sc7)));
         checkAcceptation(s2);
         //Etudiant C
@@ -96,7 +94,8 @@ public class GestionEctsApplication implements CommandLineRunner {
         checkAcceptation(s3);
         //Etudiant D
         StudentCourse sc10=new StudentCourse(s4,c2,true);
-        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10)));
+        StudentCourse sc11=new StudentCourse(s4,c5,true);
+        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10,sc11)));
         checkAcceptation(s4);
 
         //On persiste les étudiants en base de données
