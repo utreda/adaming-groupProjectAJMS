@@ -84,5 +84,4 @@ public class StudentRestController {
     public void changeValidation(@PathVariable("sId") Long sId, @PathVariable("cId") Long cId){
         this.studentService.updateValidation(sId,cId);
     }
-
 }

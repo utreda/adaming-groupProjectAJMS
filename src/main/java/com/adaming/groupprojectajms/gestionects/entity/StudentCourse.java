@@ -10,15 +10,12 @@ public class StudentCourse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn
     private Student student;
-
     @ManyToOne
     @JoinColumn
     private Course course;
-
     private Boolean isValidated;
 
     public StudentCourse() {
