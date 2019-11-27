@@ -65,13 +65,12 @@ public class CourseRestController {
     }
 
     @DeleteMapping("/courses/{cId}")
-    public List<CourseDto> deleteCourse(@PathVariable("cId") Long cId) {
+    public void deleteCourse(@PathVariable("cId") Long cId) {
         Course course = this.courseService.fetchById(cId);
         for (StudentCourse sc : course.getStudentCourses()) {
             this.studentCourseService.deleteById(sc.getId());
         }
         this.courseService.deleteById(cId);
         this.studentService.checkAcceptations();
-        return getCourses();
     }
 }
