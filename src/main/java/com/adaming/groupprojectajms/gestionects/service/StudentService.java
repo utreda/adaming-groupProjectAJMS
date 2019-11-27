@@ -29,6 +29,20 @@ public class StudentService {
         }
     }
 
+    public void checkAcceptation(Student s){
+        int sects=0;
+        for(StudentCourse sc:s.getStudentCourses()){
+            if(sc.getValidated()){
+                sects+=sc.getCourse().getEcts();
+            }
+        }
+        if(sects>=20){
+            s.setAccepted(true);
+        }else{
+            s.setAccepted(false);
+        }
+    }
+
     public void checkAcceptations() {
         Iterable<Student> students = this.fetchAll();
         for (Student s : students) {
@@ -50,14 +64,17 @@ public class StudentService {
 
     public void updateValidation(Long sId, Long cId){
         Student student=this.studentRepository.findById(sId).orElse(null);
-        for (StudentCourse sc:student.getStudentCourses()){
-            if(sc.getCourse().getId()==cId){
-                if (sc.getValidated()) {
-                    sc.setValidated(false);
-                }else{
-                    sc.setValidated(true);
+        if (student!=null) {
+            for (StudentCourse sc : student.getStudentCourses()) {
+                if (sc.getCourse().getId().equals(cId)) {
+                    if (sc.getValidated()) {
+                        sc.setValidated(false);
+                    } else {
+                        sc.setValidated(true);
+                    }
                 }
             }
+            this.checkAcceptation(student);
         }
         this.studentRepository.save(student);
     }
