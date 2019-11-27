@@ -12,12 +12,4 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
 
     @Query("SELECT s FROM Student As s WHERE s.email=:email")
     Student getStudentByEmail(String email);
-
-    @Modifying(clearAutomatically = true, flushAutomatically = true)
-    @Query("DELETE FROM Student WHERE id =:id")
-    void deleteById(Long id);
-
-    @Modifying
-    @Query("UPDATE Student s SET s.accepted=:accepted WHERE s.id=:id")
-    void setAcceptation(@Param("accepted") boolean accepted, @Param("id") Long id);
 }

@@ -29,7 +29,6 @@ public class StudentService {
         }
     }
 
-    @Transactional
     public void checkAcceptations() {
         Iterable<Student> students = this.fetchAll();
         for (Student s : students) {
@@ -40,9 +39,11 @@ public class StudentService {
                 }
             }
             if (sects >= 20) {
-                this.studentRepository.setAcceptation(true, s.getId());
+                s.setAccepted(true);
+                this.studentRepository.save(s);
             } else {
-                this.studentRepository.setAcceptation(false, s.getId());
+                s.setAccepted(false);
+                this.studentRepository.save(s);
             }
         }
     }
@@ -67,9 +68,5 @@ public class StudentService {
 
     public Student fetchById(Long id) {
         return this.studentRepository.findById(id).orElse(null);
-    }
-
-    public void deleteById(Long id) {
-        this.studentRepository.deleteById(id);
     }
 }
