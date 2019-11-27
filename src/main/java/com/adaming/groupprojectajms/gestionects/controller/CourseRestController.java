@@ -37,7 +37,6 @@ public class CourseRestController {
     @PostMapping(path = "/courses/teachers/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id) {
         try {
-            //this.courseService.registerWithInsert(new Course(courseDto.getName(), courseDto.getEcts(), this.teacherService.fetchById(id)));
             this.courseService.register(new Course(courseDto.getName(), courseDto.getEcts(), this.teacherService.fetchById(id)));
         } catch (CourseAlreadyExistException | NullCourseException e) {
             e.printStackTrace();
