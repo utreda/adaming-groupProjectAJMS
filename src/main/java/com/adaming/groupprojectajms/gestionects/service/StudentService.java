@@ -75,6 +75,7 @@ public class StudentService {
                 }
             }
             this.checkAcceptation(student);
+            this.studentRepository.save(student);
         }
     }
 
