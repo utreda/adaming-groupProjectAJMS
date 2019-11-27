@@ -55,7 +55,6 @@ public class StudentService {
         return this.studentRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public void deleteById(Long id) {
         this.studentRepository.deleteById(id);
     }

@@ -35,7 +35,6 @@ public class TeacherService {
         return this.teacherRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public void deleteById(Long id) {
         this.teacherRepository.deleteById(id);
     }

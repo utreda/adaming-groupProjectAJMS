@@ -10,9 +10,7 @@ public class StudentCourseService {
 
     @Autowired
     private StudentCourseRepository studentCourseRepository;
-
-
-    @Transactional
+    
     public void deleteById(Long id) {
         this.studentCourseRepository.deleteById(id);
     }

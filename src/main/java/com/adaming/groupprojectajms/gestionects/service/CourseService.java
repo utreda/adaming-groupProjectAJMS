@@ -44,7 +44,6 @@ public class CourseService {
         return this.courseRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public void deleteById(Long id){
         this.courseRepository.deleteById(id);
     }
