@@ -1,11 +1,9 @@
 package com.adaming.groupprojectajms.gestionects.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-public class StudentCourse implements Serializable {
-
+public class StudentCourse{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
