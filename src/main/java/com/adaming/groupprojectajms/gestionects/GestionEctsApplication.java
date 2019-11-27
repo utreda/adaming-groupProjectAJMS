@@ -27,7 +27,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         //On additionne les ects selon que la matière est validée ou pas
         int sects=0;
         for(StudentCourse sc:s.getStudentCourses()){
-            if(sc.getValidated()){
+            if(Boolean.TRUE.equals(sc.getValidated())){
                 sects+=sc.getCourse().getEcts();
             }
         }
