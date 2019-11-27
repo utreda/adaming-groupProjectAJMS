@@ -32,7 +32,7 @@ public class StudentService {
     private void checkAcceptation(Student s){
         int sects=0;
         for(StudentCourse sc:s.getStudentCourses()){
-            if(sc.getValidated()){
+            if(Boolean.TRUE.equals(sc.getValidated())){
                 sects+=sc.getCourse().getEcts();
             }
         }
@@ -48,7 +48,7 @@ public class StudentService {
         for (Student s : students) {
             int sects = 0;
             for (StudentCourse sc : s.getStudentCourses()) {
-                if (sc.getValidated()) {
+                if (Boolean.TRUE.equals(sc.getValidated())) {
                     sects += sc.getCourse().getEcts();
                 }
             }
@@ -67,7 +67,7 @@ public class StudentService {
         if (student!=null) {
             for (StudentCourse sc : student.getStudentCourses()) {
                 if (sc.getCourse().getId().equals(cId)) {
-                    if (sc.getValidated()) {
+                    if (Boolean.TRUE.equals(sc.getValidated())) {
                         sc.setValidated(false);
                     } else {
                         sc.setValidated(true);
@@ -75,8 +75,8 @@ public class StudentService {
                 }
             }
             this.checkAcceptation(student);
+            this.studentRepository.save(student);
         }
-        this.studentRepository.save(student);
     }
 
     public Iterable<Student> fetchAll() {

@@ -1,11 +1,9 @@
 package com.adaming.groupprojectajms.gestionects.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-public class StudentCourse implements Serializable {
-
+public class StudentCourse{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +14,7 @@ public class StudentCourse implements Serializable {
     @ManyToOne
     @JoinColumn
     private Course course;
-    private Boolean validated;
+    private Boolean validated=false;
 
     public StudentCourse() {
     }

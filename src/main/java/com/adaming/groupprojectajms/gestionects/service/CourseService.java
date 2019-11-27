@@ -28,19 +28,6 @@ public class CourseService {
         }
     }
 
-    /*@Transactional
-    public void registerWithInsert(Course c) throws CourseAlreadyExistException, NullCourseException {
-        if(c==null){
-            throw new NullCourseException();
-        }else{
-            if(this.courseRepository.getByName(c.getName())==null){
-                this.courseRepository.insert(c.getName(),c.getEcts(),c.getTeacher().getId());
-            }else{
-                throw new CourseAlreadyExistException();
-            }
-        }
-    }*/
-
     public Iterable<Course> fetchAll(){
         return this.courseRepository.findAll();
     }
