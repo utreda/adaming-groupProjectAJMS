@@ -15,14 +15,6 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public CourseRepository getCourseRepository() {
-        return courseRepository;
-    }
-
-    public void setCourseRepository(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
-
     @Transactional
     public void register(Course c) throws CourseAlreadyExistException, NullCourseException {
         if(c==null){
