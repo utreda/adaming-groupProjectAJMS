@@ -29,7 +29,7 @@ public class StudentService {
         }
     }
 
-    public void checkAcceptation(Student s){
+    private void checkAcceptation(Student s){
         int sects=0;
         for(StudentCourse sc:s.getStudentCourses()){
             if(sc.getValidated()){
