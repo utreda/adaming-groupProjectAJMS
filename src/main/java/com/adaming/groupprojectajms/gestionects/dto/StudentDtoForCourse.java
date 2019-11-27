@@ -1,7 +1,5 @@
 package com.adaming.groupprojectajms.gestionects.dto;
 
-import java.util.List;
-
 public class StudentDtoForCourse {
 
     private Long id;
