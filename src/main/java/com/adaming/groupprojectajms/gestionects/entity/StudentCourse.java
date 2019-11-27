@@ -14,7 +14,7 @@ public class StudentCourse{
     @ManyToOne
     @JoinColumn
     private Course course;
-    private Boolean validated;
+    private Boolean validated=false;
 
     public StudentCourse() {
     }
