@@ -47,6 +47,20 @@ public class StudentService {
         }
     }
 
+    public void updateValidation(Long sId, Long cId){
+        Student student=this.studentRepository.findById(sId).orElse(null);
+        for (StudentCourse sc:student.getStudentCourses()){
+            if(sc.getCourse().getId()==cId){
+                if (sc.getValidated()) {
+                    sc.setValidated(false);
+                }else{
+                    sc.setValidated(true);
+                }
+            }
+        }
+        this.studentRepository.save(student);
+    }
+
     public Iterable<Student> fetchAll() {
         return this.studentRepository.findAll();
     }

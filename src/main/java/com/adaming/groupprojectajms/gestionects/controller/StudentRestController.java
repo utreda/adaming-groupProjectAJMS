@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/gestion_ects/api")
 public class StudentRestController {
@@ -80,5 +80,9 @@ public class StudentRestController {
         return studentsDto;
     }
 
-}
+    @PatchMapping(value= "/students/{sId}/courses/{cId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public void changeValidation(@PathVariable("sId") Long sId, @PathVariable("cId") Long cId){
+        this.studentService.updateValidation(sId,cId);
+    }
 
+}
