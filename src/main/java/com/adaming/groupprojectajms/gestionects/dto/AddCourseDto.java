@@ -5,9 +5,6 @@ public class AddCourseDto {
     private String name;
     private int ects;
 
-    public AddCourseDto() {
-    }
-
     public String getName() {
         return name;
     }
