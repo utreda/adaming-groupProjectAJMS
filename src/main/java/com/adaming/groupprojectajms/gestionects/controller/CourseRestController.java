@@ -33,14 +33,15 @@ public class CourseRestController {
     private StudentService studentService;
     @Autowired
     private StudentCourseService studentCourseService;
+
     @PostMapping(path = "/courses/teachers/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<CourseDto> addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id) {
+    public void addNewCourse(@RequestBody @Valid AddCourseDto courseDto, @PathVariable("id") Long id) {
         try {
+            //this.courseService.registerWithInsert(new Course(courseDto.getName(), courseDto.getEcts(), this.teacherService.fetchById(id)));
             this.courseService.register(new Course(courseDto.getName(), courseDto.getEcts(), this.teacherService.fetchById(id)));
         } catch (CourseAlreadyExistException | NullCourseException e) {
             e.printStackTrace();
         }
-        return getCoursesForTeacher(id);
     }
 
     @GetMapping(value = "/courses", produces = MediaType.APPLICATION_JSON_VALUE)
