@@ -1,7 +1,5 @@
 package com.adaming.groupprojectajms.gestionects.dto;
 
-import java.util.List;
-
 public class StudentDtoForCourse {
 
     private Long id;
@@ -9,15 +7,15 @@ public class StudentDtoForCourse {
     private String lastName;
     private String email;
     private boolean validation;
-    private boolean isAccepted;
+    private boolean accepted;
 
-    public StudentDtoForCourse(Long id, String firstName, String lastName, String email, boolean validations, boolean isAccepted) {
+    public StudentDtoForCourse(Long id, String firstName, String lastName, String email, boolean validations, boolean accepted) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.validation=validations;
-        this.isAccepted = isAccepted;
+        this.accepted = accepted;
     }
 
     public Long getId() {
@@ -61,10 +59,10 @@ public class StudentDtoForCourse {
     }
 
     public boolean isAccepted() {
-        return isAccepted;
+        return accepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 }

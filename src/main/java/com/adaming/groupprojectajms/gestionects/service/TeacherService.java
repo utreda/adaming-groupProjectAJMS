@@ -34,9 +34,4 @@ public class TeacherService {
     public Teacher fetchById(Long id) {
         return this.teacherRepository.findById(id).orElse(null);
     }
-
-    @Transactional
-    public void deleteById(Long id) {
-        this.teacherRepository.deleteById(id);
-    }
 }

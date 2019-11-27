@@ -18,15 +18,14 @@ public class Teacher{
     private Long id;
     private String firstName;
     private String lastName;
-
     @Email
     @NotNull
     private String email;
-
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Course> courses;
 
-    public Teacher(){}
+    public Teacher() {
+    }
 
     public Teacher(String firstName, String lastName, @Email @NotNull String email) {
         this.firstName = firstName;

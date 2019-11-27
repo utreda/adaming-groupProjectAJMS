@@ -10,24 +10,21 @@ public class StudentCourse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn
     private Student student;
-
     @ManyToOne
     @JoinColumn
     private Course course;
-
-    private Boolean isValidated;
+    private Boolean validated;
 
     public StudentCourse() {
     }
 
-    public StudentCourse(Student student, Course course, Boolean isValidated) {
+    public StudentCourse(Student student, Course course, Boolean validated) {
         this.student = student;
         this.course = course;
-        this.isValidated = isValidated;
+        this.validated = validated;
     }
 
     public Long getId() {
@@ -55,10 +52,10 @@ public class StudentCourse implements Serializable {
     }
 
     public Boolean getValidated() {
-        return isValidated;
+        return validated;
     }
 
     public void setValidated(Boolean validated) {
-        isValidated = validated;
+        this.validated = validated;
     }
 }

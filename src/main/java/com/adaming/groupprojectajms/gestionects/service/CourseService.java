@@ -15,14 +15,6 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public CourseRepository getCourseRepository() {
-        return courseRepository;
-    }
-
-    public void setCourseRepository(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
-
     @Transactional
     public void register(Course c) throws CourseAlreadyExistException, NullCourseException {
         if(c==null){
@@ -36,6 +28,19 @@ public class CourseService {
         }
     }
 
+    /*@Transactional
+    public void registerWithInsert(Course c) throws CourseAlreadyExistException, NullCourseException {
+        if(c==null){
+            throw new NullCourseException();
+        }else{
+            if(this.courseRepository.getByName(c.getName())==null){
+                this.courseRepository.insert(c.getName(),c.getEcts(),c.getTeacher().getId());
+            }else{
+                throw new CourseAlreadyExistException();
+            }
+        }
+    }*/
+
     public Iterable<Course> fetchAll(){
         return this.courseRepository.findAll();
     }
@@ -44,7 +49,6 @@ public class CourseService {
         return this.courseRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public void deleteById(Long id){
         this.courseRepository.deleteById(id);
     }

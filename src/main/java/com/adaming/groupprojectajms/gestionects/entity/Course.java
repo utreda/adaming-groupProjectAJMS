@@ -14,20 +14,12 @@ public class Course {
     private Long id;
     private String name;
     private int ects;
-
     @ManyToOne
     private Teacher teacher;
-
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
-    public Course() {
-    }
-
-    public Course(String name, int ects) {
-        this.name = name;
-        this.ects = ects;
-    }
+    public Course(){}
 
     public Course(String name, int ects, Teacher teacher) {
         this.name = name;

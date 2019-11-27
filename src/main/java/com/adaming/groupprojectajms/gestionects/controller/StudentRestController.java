@@ -56,20 +56,6 @@ public class StudentRestController {
         return studentsDto;
     }
 
-    @GetMapping(value = "/teachers/{tId}/courses/{cId}/students", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<StudentDto> getStudentsForTeacherForCourse(@PathVariable("tId") Long tId, @PathVariable("cId") Long cId) {
-        Teacher teacher = this.teacherService.fetchById(tId);
-        List<StudentDto> studentsDto = new ArrayList<>();
-        for (Course c : teacher.getCourses().stream().distinct().collect(Collectors.toList())) {
-            if (c.getId() == cId) {
-                for (StudentCourse sc : c.getStudentCourses()) {
-                    studentsDto.add(sc.getStudent().toDto());
-                }
-            }
-        }
-        return studentsDto;
-    }
-
     @GetMapping(value = "/students/courses/{cId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<StudentDtoForCourse> getStudentsForCourse(@PathVariable("cId") Long cId) {
         Course course = this.courseService.fetchById(cId);
@@ -80,5 +66,8 @@ public class StudentRestController {
         return studentsDto;
     }
 
+    @PatchMapping(value= "/students/{sId}/courses/{cId}")
+    public void changeValidation(@PathVariable("sId") Long sId, @PathVariable("cId") Long cId){
+        this.studentService.updateValidation(sId,cId);
+    }
 }
-

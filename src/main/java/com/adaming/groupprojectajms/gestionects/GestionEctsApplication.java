@@ -23,6 +23,20 @@ public class GestionEctsApplication implements CommandLineRunner {
         SpringApplication.run(GestionEctsApplication.class, args);
     }
 
+    public static void checkAcceptation(Student s){
+        //On additionne les ects selon que la matière est validée ou pas
+        int sects=0;
+        for(StudentCourse sc:s.getStudentCourses()){
+            if(sc.getValidated()){
+                sects+=sc.getCourse().getEcts();
+            }
+        }
+        //On valide ou pas le passage de l'élève pour le semestre
+        if(sects>=20){
+            s.setAccepted(true);
+        }
+    }
+
     @Autowired
     private TeacherService teacherService;
     @Autowired
@@ -58,63 +72,31 @@ public class GestionEctsApplication implements CommandLineRunner {
         Student s2=new Student("B","B","b.b@gmail.com");
         Student s3=new Student("C","C","c.c@gmail.com");
         Student s4=new Student("D","D","d.d@gmail.com");
+
         //On crée des relations étudiant-matière pour chaque étudiant puis on les lui affilie
         //Etudiant A
         StudentCourse sc1=new StudentCourse(s1,c2,true);
         StudentCourse sc2=new StudentCourse(s1,c3,true);
         StudentCourse sc3=new StudentCourse(s1,c4,false);
         s1.setStudentCourses(new ArrayList<>(Arrays.asList(sc1,sc2,sc3)));
-        //On additionne les ects selon que la matière est validée ou pas
-        int sects1=0;
-        for(StudentCourse sc:s1.getStudentCourses()){
-            if(sc.getValidated()){
-                sects1+=sc.getCourse().getEcts();
-            }
-        }
-        //On valide ou pas le passage de l'élève pour le semestre
-        if(sects1>=20){
-            s1.setAccepted(true);
-        }
+        checkAcceptation(s1);
         //Etudiant B
         StudentCourse sc4=new StudentCourse(s2,c1,true);
-        StudentCourse sc5=new StudentCourse(s2,c5,true);
-        StudentCourse sc6=new StudentCourse(s2,c6,true);
-        StudentCourse sc7=new StudentCourse(s2,c2,false);
+        StudentCourse sc5=new StudentCourse(s2,c2,true);
+        StudentCourse sc6=new StudentCourse(s2,c5,true);
+        StudentCourse sc7=new StudentCourse(s2,c6,false);
         s2.setStudentCourses(new ArrayList<>(Arrays.asList(sc4,sc5,sc6,sc7)));
-        int sects2=0;
-        for(StudentCourse sc:s2.getStudentCourses()){
-            if(sc.getValidated()){
-                sects2+=sc.getCourse().getEcts();
-            }
-        }
-        if(sects2>=20){
-            s2.setAccepted(true);
-        }
+        checkAcceptation(s2);
         //Etudiant C
         StudentCourse sc8=new StudentCourse(s3,c3,true);
         StudentCourse sc9=new StudentCourse(s3,c4,false);
         s3.setStudentCourses(new ArrayList<>(Arrays.asList(sc8,sc9)));
-        int sects3=0;
-        for(StudentCourse sc:s3.getStudentCourses()){
-            if(sc.getValidated()){
-                sects3+=sc.getCourse().getEcts();
-            }
-        }
-        if(sects3>=20){
-            s3.setAccepted(true);
-        }
+        checkAcceptation(s3);
         //Etudiant D
         StudentCourse sc10=new StudentCourse(s4,c2,true);
-        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10)));
-        int sects4=0;
-        for(StudentCourse sc:s4.getStudentCourses()){
-            if(sc.getValidated()){
-                sects4+=sc.getCourse().getEcts();
-            }
-        }
-        if(sects4>=20){
-            s4.setAccepted(true);
-        }
+        StudentCourse sc11=new StudentCourse(s4,c5,true);
+        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10,sc11)));
+        checkAcceptation(s4);
 
         //On persiste les étudiants en base de données
         List<Student> ss=new ArrayList<>(Arrays.asList(s1,s2,s3,s4));

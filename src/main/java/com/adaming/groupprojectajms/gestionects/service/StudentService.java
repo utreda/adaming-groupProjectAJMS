@@ -29,7 +29,20 @@ public class StudentService {
         }
     }
 
-    @Transactional
+    private void checkAcceptation(Student s){
+        int sects=0;
+        for(StudentCourse sc:s.getStudentCourses()){
+            if(sc.getValidated()){
+                sects+=sc.getCourse().getEcts();
+            }
+        }
+        if(sects>=20){
+            s.setAccepted(true);
+        }else{
+            s.setAccepted(false);
+        }
+    }
+
     public void checkAcceptations() {
         Iterable<Student> students = this.fetchAll();
         for (Student s : students) {
@@ -40,11 +53,30 @@ public class StudentService {
                 }
             }
             if (sects >= 20) {
-                this.studentRepository.setAcceptation(true, s.getId());
+                s.setAccepted(true);
+                this.studentRepository.save(s);
             } else {
-                this.studentRepository.setAcceptation(false, s.getId());
+                s.setAccepted(false);
+                this.studentRepository.save(s);
             }
         }
+    }
+
+    public void updateValidation(Long sId, Long cId){
+        Student student=this.studentRepository.findById(sId).orElse(null);
+        if (student!=null) {
+            for (StudentCourse sc : student.getStudentCourses()) {
+                if (sc.getCourse().getId().equals(cId)) {
+                    if (sc.getValidated()) {
+                        sc.setValidated(false);
+                    } else {
+                        sc.setValidated(true);
+                    }
+                }
+            }
+            this.checkAcceptation(student);
+        }
+        this.studentRepository.save(student);
     }
 
     public Iterable<Student> fetchAll() {
@@ -53,10 +85,5 @@ public class StudentService {
 
     public Student fetchById(Long id) {
         return this.studentRepository.findById(id).orElse(null);
-    }
-
-    @Transactional
-    public void deleteById(Long id) {
-        this.studentRepository.deleteById(id);
     }
 }

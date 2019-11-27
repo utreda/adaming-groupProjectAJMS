@@ -19,12 +19,10 @@ public class Student{
     private Long id;
     private String firstName;
     private String lastName;
-
     @Email
     @NotNull
     private String email;
     private boolean accepted;
-
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<StudentCourse> studentCourses;
 
@@ -51,7 +49,7 @@ public class Student{
     public StudentDtoForCourse toDtoForCourse(Long id){
         boolean validation=false;
         for(StudentCourse sc:this.studentCourses){
-            if (sc.getCourse().getId()==id) {
+            if (sc.getCourse().getId().equals(id)) {
                 validation=sc.getValidated();
             }
         }
