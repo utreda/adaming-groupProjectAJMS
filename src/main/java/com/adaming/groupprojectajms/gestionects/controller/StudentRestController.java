@@ -80,7 +80,7 @@ public class StudentRestController {
         return studentsDto;
     }
 
-    @PatchMapping(value= "/students/{sId}/courses/{cId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value= "/students/{sId}/courses/{cId}")
     public void changeValidation(@PathVariable("sId") Long sId, @PathVariable("cId") Long cId){
         this.studentService.updateValidation(sId,cId);
     }
