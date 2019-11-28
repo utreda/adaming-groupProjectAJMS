@@ -12,7 +12,7 @@ pipeline {
         CI = 'true'
       }
       steps {
-        sh 'sh \'echo "Test message"'
+        sh 'echo "Test message"'
       }
     }
 
