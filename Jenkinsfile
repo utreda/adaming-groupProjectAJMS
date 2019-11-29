@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('sonar') {
       steps {
         withSonarQubeEnv(installationName: 'SonarQube', credentialsId: '81224667-0c88-42ec-84f9-03e0e859535e')
       }
