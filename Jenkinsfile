@@ -36,5 +36,11 @@ pipeline {
       }
     }
 
+    stage('') {
+      steps {
+        emailext(subject: 'Sonar report', body: 'http://localhost:9000/dashboard?id=com.adaming.groupprojectajms%3Agestion-ects', to: 'gautiem@gmail.com')
+      }
+    }
+
   }
 }
