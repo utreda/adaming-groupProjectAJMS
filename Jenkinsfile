@@ -12,7 +12,7 @@ pipeline {
         CI = 'true'
       }
       steps {
-        sh 'echo "Test message"'
+        sh 'mvn clean verify sonar:sonar'
       }
     }
 
