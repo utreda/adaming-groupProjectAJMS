@@ -4,6 +4,8 @@ import com.adaming.groupprojectajms.gestionects.entity.Student;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -14,7 +16,7 @@ class GestionEctsApplicationTests {
     public void testGetSetFirstname() {
       Student student = new Student("Seb","Pivot","seb.pivot@live.fr");
       student.setFirstName("Julia");
-        assertEquals("Julia", student.getFirstName());
+        Assert.hasText("Julia", student.getFirstName());
     }
 
     @Test
@@ -31,5 +33,5 @@ class GestionEctsApplicationTests {
         student.setEmail("ju.gayral@gmail.com");
         assertEquals("ju.gayral@gmail.com", student.getEmail());
     }
-    
+
 }
