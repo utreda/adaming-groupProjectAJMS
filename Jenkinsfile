@@ -2,12 +2,24 @@ pipeline {
   agent any
   stages {
     stage('Test0') {
-      steps {
-        echo 'Test message'
+      parallel {
+        stage('Test0') {
+          steps {
+            echo 'Test message'
+          }
+        }
+
+        stage('test shell') {
+          steps {
+            sh '''echo \'test shell\'
+'''
+          }
+        }
+
       }
     }
 
-    stage('Test') {
+    stage('maven test') {
       environment {
         CI = 'true'
       }
@@ -15,7 +27,6 @@ pipeline {
         sh 'maven test'
       }
     }
-
 
   }
 }
