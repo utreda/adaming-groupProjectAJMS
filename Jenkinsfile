@@ -12,7 +12,7 @@ pipeline {
         CI = 'true'
       }
       steps {
-        sh mvn test
+        sh 'maven test'
       }
     }
 
