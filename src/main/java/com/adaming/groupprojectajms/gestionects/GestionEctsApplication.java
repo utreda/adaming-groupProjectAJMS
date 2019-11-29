@@ -47,9 +47,9 @@ public class GestionEctsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //On persiste des professeurs en base de données
-        Teacher t1=new Teacher("X","X","x.x@gmail.com");
-        Teacher t2=new Teacher("Y","Y","y.y@gmail.com");
-        Teacher t3=new Teacher("Z","Z","z.z@gmail.com");
+        Teacher t1=new Teacher("Xavier","XAMINE","xavier.xamine@gmail.com");
+        Teacher t2=new Teacher("Yves","YXATRAL","yves.yxatral@gmail.com");
+        Teacher t3=new Teacher("Zoé","ZAPORINE","zoe.zaporine@gmail.com");
         List<Teacher> ts=new ArrayList<>(Arrays.asList(t1,t2,t3));
         for (Teacher t:ts) {
             this.teacherService.register(t);
@@ -58,7 +58,7 @@ public class GestionEctsApplication implements CommandLineRunner {
         //On persiste des matières avec leur professeur affiliés
         Course c1=new Course("Math",10,t2);
         Course c2=new Course("English",6,t2);
-        Course c3=new Course("French",4,t2);
+        Course c3=new Course("French",4,t3);
         Course c4=new Course("History",5,t3);
         Course c5=new Course("Physics",8,t1);
         Course c6=new Course("Biology",7,t1);
@@ -68,17 +68,18 @@ public class GestionEctsApplication implements CommandLineRunner {
         }
 
         //On crée des étudiants
-        Student s1=new Student("A","A","a.a@gmail.com");
-        Student s2=new Student("B","B","b.b@gmail.com");
-        Student s3=new Student("C","C","c.c@gmail.com");
-        Student s4=new Student("D","D","d.d@gmail.com");
+        Student s1=new Student("Adel","ABARE","adel.abare@gmail.com");
+        Student s2=new Student("Boris","BARRINO","boris.barrino@gmail.com");
+        Student s3=new Student("Céline","CAZONA","celine.cazona@gmail.com");
+        Student s4=new Student("Damien","DIFRATE","damien.difrate@gmail.com");
 
         //On crée des relations étudiant-matière pour chaque étudiant puis on les lui affilie
         //Etudiant A
+        StudentCourse sc0=new StudentCourse(s1,c1,true);
         StudentCourse sc1=new StudentCourse(s1,c2,true);
-        StudentCourse sc2=new StudentCourse(s1,c3,true);
-        StudentCourse sc3=new StudentCourse(s1,c4,false);
-        s1.setStudentCourses(new ArrayList<>(Arrays.asList(sc1,sc2,sc3)));
+        StudentCourse sc2=new StudentCourse(s1,c3,false);
+        StudentCourse sc3=new StudentCourse(s1,c4,true);
+        s1.setStudentCourses(new ArrayList<>(Arrays.asList(sc0,sc1,sc2,sc3)));
         checkAcceptation(s1);
         //Etudiant B
         StudentCourse sc4=new StudentCourse(s2,c1,true);
@@ -90,12 +91,16 @@ public class GestionEctsApplication implements CommandLineRunner {
         //Etudiant C
         StudentCourse sc8=new StudentCourse(s3,c3,true);
         StudentCourse sc9=new StudentCourse(s3,c4,false);
-        s3.setStudentCourses(new ArrayList<>(Arrays.asList(sc8,sc9)));
+        StudentCourse sc10=new StudentCourse(s3,c5,true);
+        StudentCourse sc11=new StudentCourse(s3,c6,false);
+        s3.setStudentCourses(new ArrayList<>(Arrays.asList(sc8,sc9,sc10,sc11)));
         checkAcceptation(s3);
         //Etudiant D
-        StudentCourse sc10=new StudentCourse(s4,c2,true);
-        StudentCourse sc11=new StudentCourse(s4,c5,true);
-        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc10,sc11)));
+        StudentCourse sc12=new StudentCourse(s4,c1,false);
+        StudentCourse sc13=new StudentCourse(s4,c2,true);
+        StudentCourse sc14=new StudentCourse(s4,c3,true);
+        StudentCourse sc15=new StudentCourse(s4,c5,true);
+        s4.setStudentCourses(new ArrayList<>(Arrays.asList(sc12,sc13,sc14,sc15)));
         checkAcceptation(s4);
 
         //On persiste les étudiants en base de données
