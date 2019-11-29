@@ -2,8 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Test0') {
-      steps {
-        echo 'Test message'
+      parallel {
+        stage('Test0') {
+          steps {
+            echo 'Test message'
+          }
+        }
+
+        stage('') {
+          steps {
+            sh 'echo \'test shell\''
+          }
+        }
+
       }
     }
 
@@ -12,7 +23,7 @@ pipeline {
         CI = 'true'
       }
       steps {
-        sh 'mvn clean verify sonar:sonar'
+        sh 'mvn --version'
       }
     }
 
