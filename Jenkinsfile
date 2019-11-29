@@ -9,7 +9,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('error') {
           steps {
             sh 'echo \'test shell\''
           }
@@ -23,7 +23,7 @@ pipeline {
         CI = 'true'
       }
       steps {
-        sh 'mvn --version'
+        sh 'mvn sonar:sonar'
       }
     }
 
