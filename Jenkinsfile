@@ -3,27 +3,36 @@ pipeline {
   stages {
     stage('Test0') {
       parallel {
-        stage('Test0') {
+        stage('Test jenkins') {
           steps {
-            echo 'Test message'
+            echo 'Jenkins message works'
           }
         }
 
-        stage('error') {
+        stage('Test shell') {
           steps {
-            sh 'echo \'test shell\''
+            sh 'echo \'Shell echo works.\''
           }
         }
 
       }
     }
 
-    stage('Test') {
+    stage('maven test') {
       environment {
         CI = 'true'
       }
       steps {
-        sh 'mvn sonar:sonar'
+        sh 'mvn test'
+        echo 'Mvn test DONE'
+      }
+    }
+
+    stage('Sonnar') {
+      steps {
+        sh '''mvn sonar:sonar \\
+  -Dsonar.host.url=http://localhost:9000 \\
+  -Dsonar.login=d7b48e79637d8cff40831818bac81b40d3bc5b8b'''
       }
     }
 
