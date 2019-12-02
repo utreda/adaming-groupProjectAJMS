@@ -28,5 +28,11 @@ pipeline {
       }
     }
 
+    stage('Slack message') {
+      steps {
+        slackSend(message: 'Jenkins Build done !', channel: '#builds', teamDomain: 'groupegestionects')
+      }
+    }
+
   }
 }
