@@ -26,5 +26,10 @@ class GestionEctsApplicationTests {
     }
 
 
-   
+    @Test
+    public void testGetSetEmail() {
+        Student student = new Student("Seb","Pivot","seb.pivot@live.fr");
+        student.setEmail("ju.gayral@gmail.com");
+        assertEquals("ju.gayral@gmail.com", student.getEmail());
+    }
 }
