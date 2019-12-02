@@ -28,11 +28,5 @@ pipeline {
       }
     }
 
-    stage('error') {
-      steps {
-        slackSend(message: 'Jenkins build done !', teamDomain: 'groupegestionects', token: '8Sshcn5B6gpUo4r9ZoJbGsLi')
-      }
-    }
-
   }
 }
