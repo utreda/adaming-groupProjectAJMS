@@ -19,7 +19,7 @@ pipeline {
 
     stage('Sonar') {
       steps {
-        sh 'mvn clean verify sonar:sonar'
+        sh 'mvn sonar:sonar'
       }
     }
 
